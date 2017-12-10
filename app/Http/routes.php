@@ -13,9 +13,13 @@ use App\categories;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('home');
-});
+});*/
+
+Route::auth();
+
+Route::get('/lvl-admin', 'HomeController@index');
 
 Route::get('/','for_slider@slider');
 
@@ -57,13 +61,12 @@ Route::get('/removeall/{id}',[
     'as' => 'removeall'
 ]);
 
-/*Route::any('/search',function(){
-    $q = Input::get ( 'q' );
-    $user = categories::where('post_title','LIKE','%'.$q.'%')->get();
-    if(count($user) > 0){
-        return view('search')->withDetails($user)->withQuery ( $q );}
-    else{ return view ('search')->withMessage('No Details found. Try to search again !');}
-});*/
+
 
 Route::any('/search','for_slider@search');
+
+
+
+
+
 
