@@ -20,7 +20,7 @@ class for_slider extends Controller
 
     public $home, $forallcats, $brands;
     function __construct(){
-        $this->home ='http://'.$_SERVER['HTTP_HOST'].'/sceneon/public';
+        $this->home ='http://'.$_SERVER['HTTP_HOST'].'/sceneon.git/public';
         $this->forallcats = DB::table('categories')
             ->select(DB::raw('COUNT(*) as counter, cat_name'))
             ->groupby('cat_name')->get();
@@ -85,8 +85,8 @@ class for_slider extends Controller
 
         $request->session()->put('cart',$cart);
 //        dd($request->session()->get('cart'));
-        return redirect()->back();
-//        echo json_encode($cart);
+//        return redirect()->back();
+        echo json_encode($cart);
     }
 
     public function mycart(Request $request){
@@ -168,12 +168,16 @@ class for_slider extends Controller
 
     public function cartSessionRemoval($flag){
         if( $flag == 'cartempty' ){
-            Session::has('cart') ? Session::forget('cart') : null;
-            echo json_encode([
-                'msg' => '<span class="alert alert-success" role="alert">Your cart has been empty</span>',
-                'msg_container' => '.cart_table',
-                'total_qty' => '0'
-            ]);
+            if( Session::has('cart') ) {
+                Session::forget('cart');
+                echo json_encode([
+                    'msg' => '<span class="alert alert-success" role="alert">Your cart has been empty</span>',
+                    'msg_container' => '.cart_table',
+                    'total_qty' => '0'
+                ]);
+            } else{
+                return \redirect('/');
+            }
         }
     }
 

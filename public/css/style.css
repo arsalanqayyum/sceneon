@@ -870,3 +870,13 @@ body {
 	text-align: center;
 	display: block;
 }
+
+.added_msg{
+	position: absolute;
+	bottom: 1px;
+	color: #128038;
+	left: 0;
+	right: 0;
+	text-align: center;
+	font-size: 14px;
+}

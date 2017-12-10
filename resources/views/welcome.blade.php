@@ -19,6 +19,12 @@
 @yield('content')
 
 @include('footer')
+<div id="site_messages" style="display: none;">
+    <a href="javascript:void('0')">
+        <i class="fa fa-close"></i>
+        <span class="site_message"></span>
+    </a>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="{{asset('OwlCarousel2-2.2.1/OwlCarousel2-2.2.1/docs/assets/owlcarousel/owl.carousel.js')}}"></script>
@@ -57,7 +63,47 @@
                 }
             }
 
-        })
+        });
+
+        jQuery(".shop-now a").on("click", function(e){
+            e.preventDefault();
+            if( jQuery(this).attr("href") != "" ){
+                jQuery.ajax({
+                    global: false,
+                    data: "",
+                    dataType: 'html',
+                    context: this,
+                    type: "GET",
+                    url: jQuery(this).attr("href"),
+                    success: function( response ) {
+                        response = jQuery.parseJSON(response);
+                        jQuery("#topnav span.badge").html(response.totalQty);
+                        jQuery(this).append('<div class="added_msg">Successfully added...</div>').show("slow", function(){
+                            setTimeout(function() {
+                                jQuery(".added_msg").hide("slow", function () {
+                                });
+                            }, 3000);
+                        });
+                    }
+                });
+            }
+        });
+        jQuery("#cartEmpty").on("click", function(){
+            jQuery.ajax({
+                global: false,
+                data: "",
+                dataType: 'html',
+                context: this,
+                type: "GET",
+                url: 'shoppingcart/cartempty',
+                success: function( response ) {
+                    response = jQuery.parseJSON(response);
+                    jQuery(response.msg_container).html(response.msg);
+                    jQuery("#topnav span.badge").html(response.total_qty);
+                    jQuery(".total").hide();
+                }
+            });
+        });
     });
 </script>
 </body>
