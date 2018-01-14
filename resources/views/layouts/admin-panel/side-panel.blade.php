@@ -249,7 +249,7 @@
             <li class="">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-list"></i>
-                    <span class="menu-text"> Tables </span>
+                    <span class="menu-text"> Sliders </span>
 
                     <b class="arrow fa fa-angle-down"></b>
                 </a>
@@ -258,18 +258,18 @@
 
                 <ul class="submenu">
                     <li class="">
-                        <a href="tables.html">
+                        <a href="{{route('insertslider')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            Simple &amp; Dynamic
+                            Add New
                         </a>
 
                         <b class="arrow"></b>
                     </li>
 
                     <li class="">
-                        <a href="jqgrid.html">
+                        <a href="{{route('allslider')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            jqGrid plugin
+                            All Sliders
                         </a>
 
                         <b class="arrow"></b>
@@ -277,7 +277,7 @@
                 </ul>
             </li>
 
-            <li class="active open">
+            <li class="active">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-pencil-square-o"></i>
                     <span class="menu-text"> Forms </span>
@@ -306,14 +306,6 @@
                         <b class="arrow"></b>
                     </li>
 
-                    <li class="">
-                        <a href="{{route('cats')}}">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Categories
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
 
                     {{--<li class="">
                         <a href="wysiwyg.html">
@@ -336,20 +328,20 @@
             </li>
 
             <li class="">
-                <a href="widgets.html">
+                <a href="{{route('brands')}}">
                     <i class="menu-icon fa fa-list-alt"></i>
-                    <span class="menu-text"> Widgets </span>
+                    <span class="menu-text"> Top Brands </span>
                 </a>
 
                 <b class="arrow"></b>
             </li>
 
             <li class="">
-                <a href="calendar.html">
+                <a href="{{route('orders')}}">
                     <i class="menu-icon fa fa-calendar"></i>
 
                     <span class="menu-text">
-								Calendar
+								Orders
 
 								<span class="badge badge-transparent tooltip-error" title="2 Important Events">
 									<i class="ace-icon fa fa-exclamation-triangle red bigger-130"></i>

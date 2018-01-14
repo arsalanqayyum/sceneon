@@ -27,14 +27,14 @@
             </div>
         </div>
         <div class="col-sm-12">
-            <form action="{{route('insert')}}" method="POST">
+            <form action="{{route('insert')}}" method="POST" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <h2>Add New Title</h2>
                 <input type="text" name="post_title" class="form-control" placeholder="Enter Title Here" value="{{ old('post_title') }}">
                 <h2>Enter Description</h2>
-                <textarea class="form-control" name="cat_desc" placeholder="Enter Description"></textarea>
+                <textarea class="form-control" name="summary" placeholder="Enter Description"></textarea>
                 <h2>Short Description</h2>
-                <textarea class="form-control" name="summary" placeholder="Enter short Description"></textarea>
+                <textarea class="form-control" name="cat_desc" placeholder="Enter short Description"></textarea>
                 <table>
                     <tr>
                         <td><h2>Price</h2></td>
@@ -42,8 +42,8 @@
                         <td><h2>Stock</h2></td>
                     </tr>
                     <tr>
-                        <td><input type="text" class="form-control" placeholder="Enter Price"></td>
-                        <td><input type="text" class="form-control" placeholder="Enter Discount"></td>
+                        <td><input type="text" name="cat_price" class="form-control" placeholder="Enter Price"></td>
+                        <td><input type="text" name="discount" class="form-control" placeholder="Enter Discount"></td>
                         <td>
                             <select class="form-control" name="stock">
                                 <option>Available</option>
@@ -83,8 +83,15 @@
                             </select>
                         </td>
                     </tr>
+                    <tr>
+                        <td><input type="submit" class="btn btn-info" value="Add POst"></td>
+                    </tr>
                 </table>
-                <input type="submit" class="btn btn-info" value="Add POst">
+                <div style="float: right">
+                    <h2>Product Image</h2>
+                    {{--<img src="">--}}
+                    <input type="file" name="cat_image" class="btn btn-info">
+                </div>
             </form>
         </div>
     </div>

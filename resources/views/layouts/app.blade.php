@@ -14,7 +14,26 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
+<!-- text fonts -->
+    <link rel="stylesheet" href="{{asset('css/fonts.googleapis.com.css')}}" />
 
+    <!-- ace styles -->
+    <link rel="stylesheet" href="{{asset('css/ace.min.css')}}" class="ace-main-stylesheet" id="main-ace-style" />
+
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="{{asset('css/ace-part2.min.css')}}" class="ace-main-stylesheet" />
+    <![endif]-->
+    <link rel="stylesheet" href="{{asset('css/ace-skins.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/ace-rtl.min.css')}}" />
+
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="{{asset('css/ace-ie.min.css')}}" />
+    <![endif]-->
+
+    <!-- inline styles related to this page -->
+
+    <!-- ace settings handler -->
+    <script src="{{asset('js/ace-extra.min.js')}}"></script>
     <style>
         body {
             font-family: 'Lato';
@@ -72,11 +91,27 @@
         </div>
     </nav>
 
+
     @yield('contents')
+
+
 
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="{{asset('js/jquery-ui.custom.min.js')}}"></script>
+    <script src="{{asset('js/jquery.ui.touch-punch.min.js')}}"></script>
+    <script src="{{asset('js/jquery.easypiechart.min.js')}}"></script>
+    <script src="{{asset('js/jquery.sparkline.index.min.js')}}"></script>
+{{--
+    <script src="{{asset('js/jquery.flot.min.js'}}"></script>
+--}}
+    <script src="{{asset('js/jquery.flot.pie.min.js')}}"></script>
+    <script src="{{asset('js/jquery.flot.resize.min.js')}}"></script>
+
+    <!-- ace scripts -->
+    <script src="{{asset('js/ace-elements.min.js')}}"></script>
+    <script src="{{asset('js/ace.min.js')}}"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>
 </html>

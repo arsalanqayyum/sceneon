@@ -34,6 +34,8 @@
 
     <!-- ace settings handler -->
     <script src="{{asset('js/ace-extra.min.js')}}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <style>
         body {
             font-family: 'Lato';
@@ -45,6 +47,9 @@
     </style>
 </head>
 <body class="no-skin">
+
+
+
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container">
         <div class="navbar-header">
@@ -93,10 +98,14 @@
 
 @include('layouts.admin-panel.side-panel')
 
+
+
 @yield('admin-content')
 
 
 </body>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <script src="{{asset('js/jquery-ui.custom.min.js')}}"></script>
@@ -132,7 +141,28 @@
         if (this.value === "") {
             document.getElementById("newbrand").disabled = false;
         }
+    };
+
+    var dis3 = document.getElementById("cat_name");
+    var dis4 = document.getElementById("newcat");
+    dis3.onchange = function () {
+        if (this.value !== "" || this.value.length > 0) {
+            document.getElementById("newcat").disabled = true;
+        }
+        if (this.value === "") {
+            document.getElementById("newcat").disabled = false;
+        }
+    };
+    dis4.onchange = function(){
+        if (this.value !== "" || this.value.length > 0) {
+            document.getElementById("cat_name").disabled = true;
+        }
+        if (this.value === "") {
+            document.getElementById("cat_name").disabled = false;
+        }
     }
 
 </script>
+
+
 </html>

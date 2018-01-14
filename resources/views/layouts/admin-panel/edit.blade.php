@@ -27,25 +27,26 @@
             </div>
         </div>
         <div class="col-sm-12">
-            <form action="{{route('update', $getall->id)}}" method="POST">
+            <form action="{{route('update', $getall->id)}}" method="POST" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <h2>Add New Title</h2>
                 <input type="text" name="post_title" class="form-control" placeholder="Enter Title Here" value="{{$getall->post_title}}">
                 <h2>Enter Description</h2>
-                <textarea class="form-control" name="summary" placeholder="Enter Description">{{$getall->summary}}</textarea>
+                <textarea class="form-control" name="summary" placeholder="Enter Description" rows="10">{{$getall->summary}}</textarea>
                 <h2>Short Description</h2>
                 <textarea class="form-control" name="cat_desc" placeholder="Enter short Description">{{$getall->cat_desc}}</textarea>
-                <table>
+                <table style="float: left">
                     <tr>
                         <td><h2>Price</h2></td>
                         <td><h2>Discount</h2></td>
                         <td><h2>Stock</h2></td>
                     </tr>
                     <tr>
-                        <td><input type="text" class="form-control" placeholder="Enter Price" value="{{$getall->cat_price}}"></td>
-                        <td><input type="text" class="form-control" placeholder="Enter Discount" value="{{$getall->discount}}"></td>
+                        <td><input type="text" name="cat_price" class="form-control" placeholder="Enter Price" value="{{$getall->cat_price}}"></td>
+                        <td><input type="text" name="discount" class="form-control" placeholder="Enter Discount" value="{{$getall->discount}}"></td>
                         <td>
                             <select class="form-control" name="stock">
+                                <option>{{$getall->stock}}</option>
                                 <option>Available</option>
                                 <option>Unavailable</option>
                                 <option>Under Shipment</option>
@@ -61,7 +62,7 @@
                     <tr>
                         <td>
                             <select class="form-control" id="brand" name="brand">
-
+                                <option></option>
                                 <option selected>{{$getall->brand}}</option>
                                 @foreach($addnew as $getpost)
                                     <option>{{$getpost->brand}}</option>
@@ -72,21 +73,32 @@
                         <td><input type="text" name="brand_title" class="form-control" placeholder="Brand Title" value="{{$getall->brand_title}}"></td>
                         <td><input type="text" name="brand" class="form-control" placeholder="Add New Brand" id="newbrand"></td>
                     </tr>
+
                     <tr>
-                        <td><h2>Display Category</h2></td>
+                        <td><h2>Category</h2></td>
+                        <td><h2>New Category</h2></td>
                     </tr>
                     <tr>
                         <td>
-                            <select class="form-control" name="cat_name">
+                            <select class="form-control" name="cat_name" id="cat_name">
                                 <option selected>{{$getall->cat_name}}</option>
                                 @foreach($category as $catname)
                                     <option>{{$catname->cat_name}}</option>
                                 @endforeach
                             </select>
                         </td>
+                        <td><input type="text" name="cat_name" class="form-control" placeholder="Add new category" id="newcat"> </td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" class="btn btn-info" value="Update"></td>
                     </tr>
                 </table>
-                <input type="submit" class="btn btn-info" value="Update">
+                <div style="float: right">
+                    <h2>Product Image</h2>
+                    <img src="{{$ghar.'/uploads/'.$getall->cat_image}}" class="img-thumbnail" width="200px">
+                    <input type="file" name="cat_image" class="btn btn-info">
+                </div>
+
             </form>
         </div>
     </div>

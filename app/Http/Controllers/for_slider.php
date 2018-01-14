@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\cart;
 use App\categories;
+use App\cats;
 use App\sliders;
 use App\topbrands;
 use Illuminate\Http\Request;
@@ -21,19 +22,20 @@ class for_slider extends Controller
     public $home, $forallcats, $brands;
     function __construct(){
         $this->home ='http://'.$_SERVER['HTTP_HOST'].'/sceneon.git/public';
-        $this->forallcats = DB::table('categories')
-            ->select(DB::raw('COUNT(*) as counter, cat_name'))
-            ->groupby('cat_name')->get();
+        $this->forallcats = DB::table('cats')->JOIN('categories','cats.id','=','categories.cats_id')->select(DB::raw('count(*) as counter,cats_id'),'cats.category')->groupby('categories.cats_id')->get();
         $this->brands =  DB::table('categories')->select(DB::raw('COUNT(*) as counter, brand'))->groupby('brand')->get();
 
     }
     public function slider(){
+        $ghar = $this->home;
         $sliders = sliders::all();
-        $cats = categories::where('cat_name','new items')->orderBy('created_at', 'desc')->take(4)->get();
-        $deal = categories::all()->where('cat_name','hot deals');
-        $new_arrivals = categories::all()->where('cat_name','new arrivals');
+/*        $cats = DB::table('categories')->JOIN ('cats','cats.id','=','categories.cats_id')->SELECT ('categories.*', 'cat_image','cat_price','cat_desc','cats_id')->take(4)->get();*/
+        $catsname = cats::all();
+        $cats = categories::where('cats_id','=',1)->take(4)->get();
+        $deal = categories::where('cats_id','=',2)->take(3)->get();
+        $new_arrivals = categories::where('cats_id','=',3)->get();
         $top_brands = topbrands::all();
-        return view('home',compact('sliders','cats', 'deal', 'new_arrivals','top_brands'));
+        return view('home',compact('sliders','cats', 'deal', 'new_arrivals','top_brands','catsname','ghar'));
     }
 
     public function getpost($id){
@@ -52,20 +54,15 @@ class for_slider extends Controller
 
     public function viewall($category){
         $ghar = $this->home;
-        $allproducts = DB::table('categories')->where('cat_name',$category)->paginate(12);/*categories::all()->where('cat_name', $category)*/;
+        /*$allproducts = DB::table('categories')->where('cat_name',$category)->paginate(12);/*categories::all()->where('cat_name', $category)*/
+        $allproducts = DB::table('categories')->JOIN('cats','categories.cats_id','=','cats.id')->SELECT('categories.*', 'cat_image','cat_price','cat_desc','cats_id')->where('cats.category','=',$category)->paginate(10);
         $sidecats = $this->forallcats;
-        /*$brands = DB::table('categories')->select('brand','brand_title')->where('brand_title','=','')->get();*/
         $brands = $this->brands;
-        return view('products',compact( 'ghar','sidecats', 'allproducts','brands'));
+        $catsname = '';
+        return view('products',compact( 'ghar','sidecats', 'allproducts','brands','catsname'));
     }
 
-    public function getcats($cats){
-        $brands = $this->brands;
-        $ghar = $this->home;
-        $sidecats = $this->forallcats;
-        $allproducts = categories::all()->where('cat_name', $cats);
-        return view('cats',compact('allproducts','ghar','sidecats','brands'));
-    }
+
 
     public function getbrands($brand){
         $brands = $this->brands;
@@ -84,8 +81,7 @@ class for_slider extends Controller
         }
 
         $request->session()->put('cart',$cart);
-//        dd($request->session()->get('cart'));
-//        return redirect()->back();
+//
         echo json_encode($cart);
     }
 
@@ -96,7 +92,7 @@ class for_slider extends Controller
 
         $oldcart = $request->session()->get('cart'); //Session::get('cart');
         $cart = new cart($oldcart);
-/*        $product = ['product'=>$cart->items,'totalprice'=>$cart->totalPrice];*/
+
         return view('shoppingcart', ['product'=>$cart->items,'totalPrice'=>$cart->totalPrice, 'totalQty'=>$cart->totalQty]);
     }
 
@@ -121,7 +117,7 @@ class for_slider extends Controller
         $order->email = $request['email'];
         $order->address = $request['address'];
         $order->user_order = serialize($cart);
-/*        Auth::user()->orders()->save($order);*/
+
         $order->save();
 
 
@@ -205,8 +201,10 @@ class for_slider extends Controller
             return view('search',compact('sidecats','brands','ghar'))->withDetails($user)->withQuery ( $q );
         }
         else{
-            return view ('404')->withMessage('No Details found. Try to search again !');
+            return view ('errors.503')->withMessage('No Details found. Try to search again !');
         }
     }
+
+
 
 }

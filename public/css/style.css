@@ -622,6 +622,31 @@ table td{
 	transition:ease-in-out 0.3s;
 }
 
+.view-all a{
+	background-color: #e52e04;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	margin: auto;
+	display: table;
+	color: #fff;
+	font-family: calibri;
+	font-size: 16px;
+	text-transform: uppercase;
+	font-weight: bold;
+	margin-top:15px;
+	margin-bottom:25px;
+}
+
+.view-all a:hover{
+	background-color:#f98008;
+	text-decoration:none;
+	color:#fff;
+	transition:ease-in-out 0.3s;
+}
+
+
 .sticker{
 	text-align: center;
     margin-top: 100px !important;

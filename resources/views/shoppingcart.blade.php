@@ -33,10 +33,10 @@
                 <tbody>
                 @foreach($product as $products)
                 <tr>
-                    <td width="260"><img src="{{$products['item']['cat_image']}}"></td>
+                    <td width="260"><img src="{{asset('/uploads').'/'.$products['item']['cat_image']}}"></td>
                     <td>
                         <h2 class="checkout-title">{{$products['item']['post_title']}}</h2><br/>
-                        <h4 class="checkout-cat">Category: {{$products['item']['cat_name']}}</h4>
+                        {{--<h4 class="checkout-cat">Category: {{$products['item']['category']}}</h4>--}}
                     </td>
                     <td>{{$products['item']['cat_price']}}</td>
                     <td>{{$products['qty']}}</td>
