@@ -116,6 +116,8 @@ Route::get('view-order/{id}',[
     'as'    =>  'vieworder'
 ]);
 
+
+
 Route::auth();
 
 Route::get('/lvl-admin', 'HomeController@index');

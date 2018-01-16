@@ -214,9 +214,9 @@ class HomeController extends Controller
 
     public function vieworder($id){
         $vieworder = orders::query()->findOrFail($id);
-
-        /*var_dump($vieworder->user_order);*/
+        $vieworder->user_order = unserialize($vieworder->user_order);
         return view('layouts.admin-panel.view-order',compact('vieworder'));
     }
+
 
 }

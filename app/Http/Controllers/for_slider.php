@@ -55,11 +55,11 @@ class for_slider extends Controller
     public function viewall($category){
         $ghar = $this->home;
         /*$allproducts = DB::table('categories')->where('cat_name',$category)->paginate(12);/*categories::all()->where('cat_name', $category)*/
-        $allproducts = DB::table('categories')->JOIN('cats','categories.cats_id','=','cats.id')->SELECT('categories.*', 'cat_image','cat_price','cat_desc','cats_id')->where('cats.category','=',$category)->paginate(10);
+        $allproducts = DB::table('categories')->JOIN('cats','categories.cats_id','=','cats.id')->SELECT('categories.*', 'cat_image','cat_price','cat_desc','cats_id', 'category')->where('cats.category','=',$category)->paginate(10);
         $sidecats = $this->forallcats;
         $brands = $this->brands;
         $catsname = '';
-        return view('products',compact( 'ghar','sidecats', 'allproducts','brands','catsname'));
+        return view('products',compact( 'ghar','sidecats', 'allproducts','brands','catsname', 'category'));
     }
 
 
@@ -116,10 +116,31 @@ class for_slider extends Controller
         $order->name = $request['name'];
         $order->email = $request['email'];
         $order->address = $request['address'];
-        $order->user_order = serialize($cart);
+
+        $item_details['totalQty'] = $cart->totalQty;
+        $item_details['totalPrice'] = $cart->totalPrice;
+        $item_details['items'] = [];
+        foreach ( $cart->items as $item ) {
+            $temp = [];
+            $temp['qty'] = $item['qty'];
+            $temp['price'] = $item['price'];
+            $temp['id'] = $item['item']->id;
+            $temp['brand'] = $item['item']->brand;
+            $temp['brand_title'] = $item['item']->brand_title;
+            $temp['brand_cat'] = $item['item']->brand_cat;
+            $temp['cats_id'] = $item['item']->cats_id;
+            $temp['cat_desc'] = $item['item']->cat_desc;
+            $temp['cat_price'] = $item['item']->cat_price;
+            $temp['cat_image'] = $item['item']->cat_image;
+            $temp['post_title'] = $item['item']->post_title;
+            $temp['discount'] = $item['item']->discount;
+            array_push($item_details['items'], $temp);
+        }
+
+
+        $order->user_order = serialize($item_details);
 
         $order->save();
-
 
         $encoding = "utf-8";
         $subject_preferences = array(

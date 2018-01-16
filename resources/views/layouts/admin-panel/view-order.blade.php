@@ -41,10 +41,59 @@
                 <td>{{$vieworder->address}}</td>
             </tr>
             <tr>
+                <th>Created at</th>
+                <td>{{$vieworder->created_at}}</td>
+            </tr>
+
+            <tr>
+                <th>Status</th>
+                <td><select name="status">
+                        <option></option>
+                        <option>Pending</option>
+                        <option>Inprocess</option>
+                    </select>
+                    <input type="submit" value="update" class="btn btn-info">
+                </td>
+            </tr>
+
+            <tr>
                 <th>Order</th>
 
-                <td>{{$vieworder->user_order }}</td>
+                <td>
+                    <table class="table table-bordered">
+                        <tr>
 
+                            <th>Item Image</th>
+                            <th>Item Description</th>
+                            <th>Qty</th>
+                            <th>Brand Title</th>
+                            <th>Brand Category</th>
+                            <th>Rate</th>
+                            <th>Amount</th>
+                            <th>Discount</th>
+                        </tr>
+                        @foreach( $vieworder->user_order['items'] as $order )
+                            <tr>
+                                <td><img src="{{asset('/uploads').'/'.$order['cat_image']}}" alt="" width="120px"></td>
+                                <td>{{$order['cat_desc']}}</td>
+                                <td>{{$order['qty']}}</td>
+                                <td>{{$order['brand']}}</td>
+                                <td>{{$order['brand_title']}}</td>
+                                <td>{{$order['cat_price']}}</td>
+                                <td>{{$order['price']}}</td>
+                                <td>{{$order['discount']}}</td>
+                            </tr>
+                        @endforeach
+                        <tr>
+                            <td colspan="5">
+                                <h3>Total Quantity: {{ $vieworder->user_order['totalQty'] }}</h3>
+                            </td>
+                            <td colspan="5">
+                                <h3>Total Price: {{ $vieworder->user_order['totalPrice'] }}</h3>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
             </tr>
 
         </table>
