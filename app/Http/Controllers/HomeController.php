@@ -208,15 +208,29 @@ class HomeController extends Controller
     }
 
     public function allorders(){
-        $order = DB::table('orders')->paginate(6);
-        return view('layouts.admin-panel.order',compact('order'));
-    }
+        $order = DB::table('orders')->where('status','=','')->latest()->get();
+            return view('layouts.admin-panel.order',compact('order'));
+        }
 
-    public function vieworder($id){
+
+
+    public function vieworder($id,Request $request){
         $vieworder = orders::query()->findOrFail($id);
         $vieworder->user_order = unserialize($vieworder->user_order);
         return view('layouts.admin-panel.view-order',compact('vieworder'));
     }
 
+    public function updatestatus($id){
+        $vieworder = orders::query()->findOrFail($id);
+        $vieworder->status = input::get('status');
+        $vieworder->save();
+        return redirect()->back();
+    }
 
+    public function filter(Request $request){
+        $status = $request->get('status');
+       $order = orders::where('status','=', $status)->latest()->get();
+        return view('layouts.admin-panel.order',compact('order'));
+
+    }
 }

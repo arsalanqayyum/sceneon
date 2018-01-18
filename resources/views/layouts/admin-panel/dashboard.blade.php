@@ -164,5 +164,31 @@
 
 </script>
 
+<script>
+    /*$(document).ready(function(){
+        $(document).on('change','#filter',function(){
+           var value = $(this).val();
+           $.ajax(
+               {
+                   url:",
+                   type:'POST',
+                   data:{value : value},
+                   beforeSend:function(){
+
+                    $("#filter-table").html('working on');
+                   },
+                   success:function(response){
+                       $("#filter-table").html(response);
+                   },
+               }
+           );
+       });
+
+    });*/
+
+
+
+</script>
+
 
 </html>

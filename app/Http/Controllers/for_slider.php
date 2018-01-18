@@ -114,8 +114,12 @@ class for_slider extends Controller
         $cart = new cart($oldcart);
         $order = new orders;
         $order->name = $request['name'];
+        $order->lastname = $request['lastname'];
         $order->email = $request['email'];
         $order->address = $request['address'];
+        $order->cell    = $request['cell'];
+        $order->phone   = $request['phone'];
+        $order->cnic    = $request['cnic'];
 
         $item_details['totalQty'] = $cart->totalQty;
         $item_details['totalPrice'] = $cart->totalPrice;

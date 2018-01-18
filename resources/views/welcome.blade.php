@@ -17,6 +17,13 @@
 <body>
 @include('topnav')
 
+@if(session()->has('checkout'))
+<div class="alert alert-success alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+    <strong>{{session()->get('checkout')}}</strong>
+</div>
+@endif
+
 @yield('content')
 
 @include('footer')

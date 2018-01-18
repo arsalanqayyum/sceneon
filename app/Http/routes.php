@@ -116,7 +116,15 @@ Route::get('view-order/{id}',[
     'as'    =>  'vieworder'
 ]);
 
+Route::post('view-order/{update}',[
+    'uses'  => 'HomeController@updatestatus',
+    'as'    =>  'update'
+]);
 
+Route::get('filter',[
+    'uses'  => 'HomeController@filter',
+    'as'    => 'filter'
+]);
 
 Route::auth();
 

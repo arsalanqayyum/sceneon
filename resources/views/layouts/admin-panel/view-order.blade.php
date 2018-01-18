@@ -14,6 +14,7 @@
                         <a href="#">Tables</a>
                     </li>
                     <li class="active">Simple &amp; Dynamic</li>
+
                 </ul><!-- /.breadcrumb -->
 
                 <div class="nav-search" id="nav-search">
@@ -26,7 +27,8 @@
                 </div><!-- /.nav-search -->
             </div>
         </div>
-
+        <form method="post" action="{{route('update',$vieworder->id)}}">
+            {{csrf_field()}}
         <table class="table table-bordered">
             <tr>
                 <th>Name</th>
@@ -47,10 +49,12 @@
 
             <tr>
                 <th>Status</th>
-                <td><select name="status">
-                        <option></option>
+                <td><select name="status" >
+                        <option>{{$vieworder->status}}</option>
                         <option>Pending</option>
                         <option>Inprocess</option>
+                        <option>Completed</option>
+                        <option>Cancel</option>
                     </select>
                     <input type="submit" value="update" class="btn btn-info">
                 </td>
@@ -97,7 +101,7 @@
             </tr>
 
         </table>
-
+        </form>
 
     </div>
     @endsection
