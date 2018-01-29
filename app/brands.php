@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class cats extends Model
+class brands extends Model
 {
-    protected $table = 'cats';
+    protected $table = 'brands';
     const UPDATED_AT = 'uploaded_at';
     const CREATED_AT = 'created_at';
 }

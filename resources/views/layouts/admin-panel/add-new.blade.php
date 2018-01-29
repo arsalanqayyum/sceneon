@@ -30,7 +30,7 @@
             <form action="{{route('insert')}}" method="POST" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <h2>Add New Title</h2>
-                <input type="text" name="post_title" class="form-control" placeholder="Enter Title Here" value="{{ old('post_title') }}">
+                <input type="text" name="post_title" class="form-control" placeholder="Enter Title Here">
                 <h2>Enter Description</h2>
                 <textarea class="form-control" name="summary" placeholder="Enter Description"></textarea>
                 <h2>Short Description</h2>
@@ -61,15 +61,14 @@
                     <tr>
                         <td>
                             <select class="form-control" id="brand" name="brand">
-                                <option></option>
-                                @foreach($addnew as $getpost)
-                                <option>{{$getpost->brand}}</option>
+                                @foreach($brands as $getpost)
+                                <option value="{{$getpost->id}}">{{$getpost->prod_cat}}</option>
                                 @endforeach
 
                             </select>
                         </td>
                         <td><input type="text" name="brand_title" class="form-control" placeholder="Brand Title"></td>
-                        <td><input type="text" name="brand" class="form-control" placeholder="Add New Brand" id="newbrand"></td>
+                        {{--<td><input type="text" name="brand" class="form-control" placeholder="Add New Brand" id="newbrand"></td>--}}
                     </tr>
                     <tr>
                         <td><h2>Display Category</h2></td>
@@ -78,7 +77,7 @@
                         <td>
                             <select class="form-control" name="cat_name">
                                 @foreach($category as $catname)
-                                <option>{{$catname->cat_name}}</option>
+                                <option value="{{$catname->id}}">{{$catname->category}}</option>
                                 @endforeach
                             </select>
                         </td>

@@ -44,12 +44,49 @@ Route::get('/edit/{id}',[
 
 Route::post('/update/{id}',[
    'uses' => 'HomeController@update',
-   'as' => 'update'
+   'as' => 'updatepost'
 ]);
 
 Route::get('/delete-post/{id}',[
     'uses' => 'HomeController@deletepost',
     'as'    => 'delete'
+]);
+
+
+Route::get('/categories',[
+    'uses'  => 'HomeController@allcategories',
+    'as'    => 'all-cats'
+]);
+
+Route::post('/new-cat',[
+    'uses'  => 'HomeController@insertcategory',
+    'as'    => 'insertcategory'
+]);
+
+Route::post('/edit-cat/{id}',[
+    'uses'  => 'HomeController@editcat',
+    'as'    =>  'editcategory'
+]);
+
+Route::get('/delete-cat/{id}',[
+    'uses'  => 'HomeController@delete',
+    'as'    => 'deletecategory'
+]);
+
+
+Route::get('/prod-category',[
+    'uses'  => 'HomeController@prodcat',
+    'as'    => 'prodcat'
+]);
+
+Route::post('/new-prodcat',[
+    'uses'  => 'HomeController@insertprodcategory',
+    'as'    => 'insertprodcat'
+]);
+
+Route::get('/delete-prodcat/{id}',[
+    'uses'  => 'HomeController@deleteprodcat',
+    'as'    => 'deleteprodcat'
 ]);
 
 Route::get('/all-slider',[
@@ -124,6 +161,11 @@ Route::post('view-order/{update}',[
 Route::get('filter',[
     'uses'  => 'HomeController@filter',
     'as'    => 'filter'
+]);
+
+Route::get('delete-order/{id}',[
+    'uses'  => 'HomeController@deleteorder',
+    'as'    => 'deleteorder'
 ]);
 
 Route::auth();

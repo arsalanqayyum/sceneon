@@ -27,9 +27,10 @@
             </div>
         </div>
         <div class="col-sm-12">
-            <form action="{{route('update', $getall->id)}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('updatepost',$getall->id)}}" method="POST" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <h2>Add New Title</h2>
+                <h4></h4>
                 <input type="text" name="post_title" class="form-control" placeholder="Enter Title Here" value="{{$getall->post_title}}">
                 <h2>Enter Description</h2>
                 <textarea class="form-control" name="summary" placeholder="Enter Description" rows="10">{{$getall->summary}}</textarea>
@@ -55,39 +56,36 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><h2>Brand</h2></td>
+                        <td><h2>Prod.Cat</h2></td>
                         <td><h2>Brand Title</h2></td>
-                        <td><h2>Add New Brand</h2></td>
+                        {{--<td><h2>Add New Brand</h2></td>--}}
                     </tr>
                     <tr>
                         <td>
-                            <select class="form-control" id="brand" name="brand">
-                                <option></option>
-                                <option selected>{{$getall->brand}}</option>
-                                @foreach($addnew as $getpost)
-                                    <option>{{$getpost->brand}}</option>
+                            <select class="form-control" id="brand" name="prod_cat">
+                                @foreach($brand as $post)
+                                    <option value="{{$post->id}}" @if($getall->prod_cat == $post->id)selected @endif>{{$post->prod_cat}}</option>
                                 @endforeach
 
                             </select>
                         </td>
                         <td><input type="text" name="brand_title" class="form-control" placeholder="Brand Title" value="{{$getall->brand_title}}"></td>
-                        <td><input type="text" name="brand" class="form-control" placeholder="Add New Brand" id="newbrand"></td>
+                        {{--<td><input type="text" name="brand" class="form-control" placeholder="Add New Brand" id="newbrand"></td>--}}
                     </tr>
 
                     <tr>
                         <td><h2>Category</h2></td>
-                        <td><h2>New Category</h2></td>
+                        {{--<td><h2>New Category</h2></td>--}}
                     </tr>
                     <tr>
                         <td>
                             <select class="form-control" name="cat_name" id="cat_name">
-                                <option selected>{{$getall->cat_name}}</option>
-                                @foreach($category as $catname)
-                                    <option>{{$catname->cat_name}}</option>
+                                @foreach($category as $post)
+                                    <option value="{{$post->id}}" @if($getall->cats_id == $post->id)selected @endif>{{$post->category}}</option>
                                 @endforeach
                             </select>
                         </td>
-                        <td><input type="text" name="cat_name" class="form-control" placeholder="Add new category" id="newcat"> </td>
+                        {{--<td><input type="text" name="category" class="form-control" placeholder="Add new category" id="newcat"> </td>--}}
                     </tr>
                     <tr>
                         <td><input type="submit" class="btn btn-info" value="Update"></td>
@@ -95,11 +93,12 @@
                 </table>
                 <div style="float: right">
                     <h2>Product Image</h2>
-                    <img src="{{$ghar.'/uploads/'.$getall->cat_image}}" class="img-thumbnail" width="200px">
+                    <img src="{{asset('/uploads').'/'.$getall->cat_image}}" class="img-thumbnail" width="200px">
                     <input type="file" name="cat_image" class="btn btn-info">
                 </div>
 
             </form>
+
         </div>
     </div>
 @endsection

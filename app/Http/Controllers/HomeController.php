@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\brands;
+use App\cats;
 use App\Http\Requests;
 use App\orders;
 use App\sliders;
@@ -11,6 +13,8 @@ use App\categories;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
@@ -32,34 +36,20 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('layouts.admin-panel.dashboard');
-    }
 
-
-    /*public function post()
-    {
-        return view('layouts.admin-panel.add-new');
-    }*/
-
-    public function allposts()
-    {
-
-        return view('layouts.admin-panel.add-slider');
-    }
 
     public function adminallposts()
     {
-        $allposts = DB::table('categories')->JOIN('cats','categories.cats_id','=','cats.id')->SELECT('categories.*', 'cat_image','cat_price','cat_desc','cats.category','post_title')->paginate(6);
+        $allposts = DB::table('categories')->JOIN('cats','categories.cats_id','=','cats.id')->SELECT('categories.*', 'cat_image','cat_price','cat_desc','cats.category','post_title')->latest()->paginate(6);
         return view('layouts.admin-panel.all-posts',compact('allposts'));
     }
 
 
     public function addnew(Request $request){
-        $addnew = DB::table('categories')->groupby('brand')->get();
-        $category = DB::table('categories')->groupby('cat_name')->get();
-        return view ('layouts.admin-panel.add-new',compact('addnew','category'));
+        /*$addnew = DB::table('categories')->groupby('brand')->get();*/
+        $category = cats::all();
+        $brands = brands::all();
+        return view ('layouts.admin-panel.add-new',compact('brands','category'));
     }
 
     public function insert(Request $request){
@@ -74,9 +64,9 @@ class HomeController extends Controller
         $post->cat_price = Input::get('cat_price');
         $post->discount = Input::get('discount');
         $post->stock = Input::get('stock');
-        $post->brand = Input::get('brand');
+        $post->prod_cat = Input::get('brand');
         $post->brand_title = Input::get('brand_title');
-        $post->cat_name = Input::get('cat_name');
+        $post->cats_id = Input::get('cat_name');
         $post->cat_image = $filename;
         $post->save();
         $request->session()->flash('message','Post Successfully Added!');
@@ -84,14 +74,15 @@ class HomeController extends Controller
     }
 
     public function edit($id){
-        $addnew = DB::table('categories')->groupby('brand')->get();
-        $category = DB::table('categories')->groupby('cat_name')->get();
         $getall = DB::table('categories')->find($id);
-        $ghar = $this->home;
-        return view('layouts.admin-panel.edit',compact('addnew','category','getall','ghar'));
+        $category = cats::all();
+        $brand = brands::all();
+        $join = DB::table('categories')->join('cats','categories.cats_id','=','cats.id')->where('categories.id','=',$id);
+        return view('layouts.admin-panel.edit',compact('getall','category','brand','getid','join'));
     }
 
-    public function update($id,Request $request){
+
+    public function update($id, Request $request){
        /* $postdata = $request->except(['_token']);*/
         $post = categories::query()->findOrFail($id);
         if ($request->hasFile('cat_image')) {
@@ -106,10 +97,9 @@ class HomeController extends Controller
         $post->cat_price = Input::get('cat_price');
         $post->discount = Input::get('discount');
         $post->stock = Input::get('stock');
-        $post->brand = Input::get('brand');
         $post->brand_title = Input::get('brand_title');
-        $post->cat_name = Input::get('cat_name');
-
+        $post->cats_id = Input::get('cat_name');
+        $post->prod_cat = Input::get('prod_cat');
         $post->save();
         $request->session()->flash('message','Post Successfully Updated!');
         return redirect()->back()->withInput();
@@ -209,9 +199,13 @@ class HomeController extends Controller
 
     public function allorders(){
         $order = DB::table('orders')->where('status','=','')->latest()->get();
+        if(!empty($order)){
+            return view('layouts.admin-panel.order',compact('order'));
+        }else{
+            Session::flash('msg', 'No New Order Found!');
             return view('layouts.admin-panel.order',compact('order'));
         }
-
+        }
 
 
     public function vieworder($id,Request $request){
@@ -227,10 +221,61 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
+    public function deleteorder($id){
+        DB::table('orders')->delete($id);
+        Session::flash('msg','Record deleted');
+        return redirect()->back();
+    }
+
     public function filter(Request $request){
         $status = $request->get('status');
        $order = orders::where('status','=', $status)->latest()->get();
         return view('layouts.admin-panel.order',compact('order'));
+    }
 
+    public function allcategories(){
+        $getcats = cats::all();
+        return view('layouts.admin-panel.categories',compact('getcats'));
+    }
+
+    public function insertcategory(){
+        $newcat = new cats();
+        $newcat->category = Input::get('cat');
+        $newcat->save();
+        session::flash('msg','Category Insert Successfully!');
+        return redirect()->back();
+    }
+
+    public function editcat($id){
+        $editcat = cats::query()->findOrFail($id);
+        $editcat->category = Input::get('cat');
+        $editcat->save();
+        session::flash('msg','Category Edit Successfully!');
+        return redirect()->back();
+    }
+
+    public function delete($id){
+        DB::table('cats')->delete($id);
+        session::flash('msg','Category Deleted Successfully!');
+        return redirect()->back();
+    }
+
+    public function prodcat(){
+        $prodcat = brands::all();
+        return view('layouts.admin-panel.prodcats',compact('prodcat'));
+    }
+
+    public function insertprodcategory(){
+        $newcat = new brands();
+        $newcat->prod_cat = Input::get('cat');
+        $newcat->save();
+        session::flash('msg','Category Insert Successfully!');
+        return redirect()->back();
+    }
+
+    public function deleteprodcat($id){
+        DB::table('brands')->delete($id);
+        session::flash('msg','Category Deleted Successfully!');
+        return redirect()->back();
     }
 }

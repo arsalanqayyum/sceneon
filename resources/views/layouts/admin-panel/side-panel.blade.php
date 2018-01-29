@@ -8,7 +8,7 @@
             try{ace.settings.loadState('sidebar')}catch(e){}
         </script>
 
-        <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+        {{--<div class="sidebar-shortcuts" id="sidebar-shortcuts">
             <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
                 <button class="btn btn-success">
                     <i class="ace-icon fa fa-signal"></i>
@@ -36,7 +36,7 @@
 
                 <span class="btn btn-danger"></span>
             </div>
-        </div><!-- /.sidebar-shortcuts -->
+        </div>--}}<!-- /.sidebar-shortcuts -->
 
         <ul class="nav nav-list">
             <li class="">
@@ -48,7 +48,7 @@
                 <b class="arrow"></b>
             </li>
 
-            <li class="">
+            {{--<li class="">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-desktop"></i>
                     <span class="menu-text">
@@ -244,43 +244,24 @@
                         </ul>
                     </li>
                 </ul>
-            </li>
+            </li>--}}
 
             <li class="">
-                <a href="#" class="dropdown-toggle">
+                <a href="{{route('allslider')}}">
                     <i class="menu-icon fa fa-list"></i>
                     <span class="menu-text"> Sliders </span>
 
-                    <b class="arrow fa fa-angle-down"></b>
+
                 </a>
 
                 <b class="arrow"></b>
 
-                <ul class="submenu">
-                    <li class="">
-                        <a href="{{route('insertslider')}}">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Add New
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="{{route('allslider')}}">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            All Sliders
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-                </ul>
             </li>
 
             <li class="active">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-pencil-square-o"></i>
-                    <span class="menu-text"> Forms </span>
+                    <span class="menu-text"> Posts </span>
 
                     <b class="arrow fa fa-angle-down"></b>
                 </a>
@@ -289,12 +270,37 @@
 
                 <ul class="submenu">
                     <li>
-                        <a href="{{route('addnew')}}">
+                        <a href="#">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Add New
                         </a>
 
                         <b class="arrow"></b>
+
+                        <ul>
+                            <li>
+                                <a href="{{route('addnew')}}" style="margin-left: 30px; line-height: 2;">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    Add Post
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('all-cats')}}" style="margin-left: 30px; line-height: 2;">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    Add/View Category
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{route('prodcat')}}" style="margin-left: 30px; line-height: 3">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    Product Category
+                                </a>
+                            </li>
+
+                        </ul>
+
+
                     </li>
 
                     <li class="">
@@ -307,23 +313,7 @@
                     </li>
 
 
-                    {{--<li class="">
-                        <a href="wysiwyg.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Wysiwyg &amp; Markdown
-                        </a>
 
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="dropzone.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Dropzone File Upload
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>--}}
                 </ul>
             </li>
 
@@ -352,16 +342,9 @@
                 <b class="arrow"></b>
             </li>
 
-            <li class="">
-                <a href="gallery.html">
-                    <i class="menu-icon fa fa-picture-o"></i>
-                    <span class="menu-text"> Gallery </span>
-                </a>
 
-                <b class="arrow"></b>
-            </li>
 
-            <li class="">
+            {{--<li class="">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-tag"></i>
                     <span class="menu-text"> More Pages </span>
@@ -444,9 +427,9 @@
                         <b class="arrow"></b>
                     </li>
                 </ul>
-            </li>
+            </li>--}}
 
-            <li class="">
+            {{--<li class="">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-file-o"></i>
 
@@ -507,7 +490,7 @@
                         <b class="arrow"></b>
                     </li>
                 </ul>
-            </li>
+            </li>--}}
         </ul><!-- /.nav-list -->
 
         <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
