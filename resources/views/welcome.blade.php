@@ -36,17 +36,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="{{asset('OwlCarousel2-2.2.1/OwlCarousel2-2.2.1/docs/assets/owlcarousel/owl.carousel.js')}}"></script>
-<script>
-    jQuery(document).ready(function(){
-        jQuery('.owl-carousel').owlCarousel();
-    });
-</script>
+
 <script>
     $(document).ready(function(){
         $('.owl-carousel').owlCarousel({
             loop:false,
             margin:0,
-            nav:false,
+            nav:true,
             lazyLoad:true,
             responsiveClass:true,
             autoplay:true,

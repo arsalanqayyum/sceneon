@@ -27,7 +27,7 @@
         </div>
     </div>
 </div>
-<nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="450">
+<nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="750">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -35,11 +35,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><img src="uploads/logo.png" class="img-responsive logo" /></a>
+            {{--<a class="navbar-brand" href="#"><img src="uploads/logo.png" class="img-responsive logo" /></a>--}}
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-
                 <li><a href="#">Deals</a></li>
                 <li><a href="#">Trending</a></li>
                 <li><a href="#">Clothing</a></li>
@@ -55,12 +54,12 @@
 
             </ul>
             <div class="navbar-right">
-                <form method="POST" action="{{url('search')}}" class="navbar-form" role="search">
+                <form method="POST" action="{{route('search')}}" class="navbar-form" role="search">
                     {{ csrf_field() }}
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search..." name="q">
                         <span class="input-group-btn">
-							<button type="submit" class="btn btn-default">
+							<button type="submit" class="btn btn-md btn-warning">
 								<span class="glyphicon glyphicon-search">
 									<span class="sr-only">Search...</span>
 								</span>

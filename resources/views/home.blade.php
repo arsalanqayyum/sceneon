@@ -9,7 +9,6 @@
             @foreach ($sliders as $key => $slide)
             <li data-target="#myCarousel" data-slide-to="{{$slide->index}}" class="{{ $key == 0 ? ' active' : '' }}"></li>
             @endforeach
-            {{--<li data-target="#myCarousel" data-slide-to="1"></li>--}}
         </ol>
 
         <!-- Wrapper for slides -->
@@ -36,10 +35,10 @@
     <div class="container bg">
         <div class="row brdr">
             <div class="col-lg-6 col-sm-6 col-xs-6">
-                <h1>{{$catsname->pluck('category')[0]}}</h1>
+                <h1 class="new-sticker">{{$catsname->pluck('category')[0]}}</h1>
             </div>
             <div class="col-lg-6 col-sm-6 col-xs-6">
-                <span class="right"><a href="{{url('products',[$catsname->pluck('category')[0]])}}">view more</a></span>
+                <span class="right "><a href="{{url('products',[$catsname->pluck('category')[0]])}}">view more</a></span>
             </div>
         </div>
 
@@ -47,13 +46,15 @@
             @foreach($cats as $product)
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 brdr-right">
                     <div class="new-items">
-                        {{--<h1>{{$product->cats}}</h1>--}}
-                        <a href="{{url('',[$product->id])}}"><img src="{{url('').'/uploads/'.$product->cat_image}}" class="img-responsive"/></a>
+                        <a href="{{url('',[$product->id])}}">
+                            <img src="{{asset('/uploads').'/'.$product->cat_image}}" class="img-responsive"/>
+                        </a>
                         <div class="tags">{{$product->cat_price}}</div>
                         <div class="overlay">
                             <a href="#"><i class="fa fa-plus"></i> Add to Cart</a>
                             <a href="#"><i class="fa fa-shopping-cart"></i> Buy Now</a>
                         </div>
+                        <p>{{$product->brand_title}}</p>
                         <label>{{$product->cat_desc}}</label>
                         <div class="shop-now">
                             <a href="{{url('add-to-cart/'.$product->id)}}">shop now</a>
@@ -82,6 +83,7 @@
                     <div class="new-items">
                         <a href="{{url('',[$product->id])}}"><img src="{{url('').'/uploads/'.$product->cat_image}}" class="img-responsive"/></a>
                         <div class="tags">{{$product->post_title}}</div>
+                        <label><strong>Rs. {{$product->cat_price}}</strong></label>
                         <label>{{$product->cat_desc}}</label>
                         <div class="shop-now">
                             <a href="{{url('add-to-cart/'.$product->id)}}">shop now</a>
@@ -101,7 +103,7 @@
                 <h1 class="sticker">{{$catsname->pluck('category')[2]}}</h1>
                 <p class="cntnt">{{$new_arrivals->pluck('cat_content')[0]}}</p>
                 <div class="view-all">
-                    {{--<a href="{{url('products',[$new_arrivals->pluck('cat_name')[0]])}}">shop now</a>--}}
+                    <a href="{{url('products',[$catsname->pluck('category')[2]])}}">shop now</a>
                 </div>
             </div>
             <div class="col-sm-9">
@@ -124,10 +126,10 @@
     <div class="bg">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-12">
+                <div class="">
                     <div class="owl-carousel owl-theme">
                         @foreach($new_arrivals as $product)
-                            <div class="item"><img src="{{url('').'/uploads/'.$product->cat_image}}" class="img-thumbnail lazyOwl" /> </div>
+                            <div class="item"><img src="{{url('').'/uploads/'.$product->cat_image}}" class="img-thumbnail lazyOwl" style="height: 300px !important;" /> </div>
                         @endforeach
                     </div>
                 </div>

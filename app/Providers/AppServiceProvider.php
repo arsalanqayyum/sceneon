@@ -22,35 +22,48 @@ class AppServiceProvider extends ServiceProvider
         });
     }
 
-    // generate tree for teams
-    public function buildTree($elements, $parentId = 0) {
-        $branch = array();
-        foreach ($elements as $key => $element) {
-            if ($element['parent_id'] == $parentId) {
-                $children = $this->buildTree($elements, $element['id']);
-                if ($children) {
-                    $element['children'] = $children;
-                }
-                $branch[] = $element;
+    /*// generate tree for teams
+    private static function mapTree($dataset, $parent = 0)
+    {
+        $tree = array();
+
+        foreach ($dataset as $id => $node)
+        {
+            if ($node->parent_id != $parent) continue;
+            $node->children = self::mapTree($dataset, $node->id);
+            $tree[$id] = $node;
+        }
+
+        return $tree;
+    }
+
+    private static function prepareMenu($tree)
+    {
+        $data = '<ul class="nav navbar-nav">';
+
+        foreach ($tree as $item)
+        {
+            $data .= '<li><a href="' . $item->url . '">' . $item->title . '</a></li>';
+
+            if (count($item->children) > 0)
+            {
+                $data .= self::prepareMenu($item->children);
             }
         }
-        return $branch;
+
+        $data .= '</ul>';
+
+        return $data;
     }
-   public function display_with_children($parentRow, $level = 0) {
-        echo '<li>';
-        ?>
-        <div class="node__name"><?php echo (!empty($parentRow['name']) && isset($parentRow['name']))?$parentRow['name']:''; ?></div>
-        <div class="node__designation"><?php echo (!empty($parentRow['designation']) && isset($parentRow['designation']))?$parentRow['designation']:''; ?></div>
-        <?php
-        if ( array_key_exists('children',$parentRow) ) {
-            echo '<ul>';
-            foreach($parentRow['children'] as $caa){
-                display_with_children($caa, $level+1);
-            }
-            echo '</ul>';
-        }
-        echo '</li>';
-    }
+
+    public static function generateMenu()
+    {
+        $urls = menu::all();
+        $tree = self::mapTree($urls);
+        $data = self::prepareMenu($tree);
+
+        return $data;
+    }*/
 
 
     /**

@@ -23,7 +23,7 @@ class for_slider extends Controller
     function __construct(){
         $this->home ='http://'.$_SERVER['HTTP_HOST'].'/sceneon.git/public';
         $this->forallcats = DB::table('cats')->JOIN('categories','cats.id','=','categories.cats_id')->select(DB::raw('count(*) as counter,cats_id'),'cats.category')->groupby('categories.cats_id')->get();
-        $this->brands =  DB::table('categories')->select(DB::raw('COUNT(*) as counter, brand'))->groupby('brand')->get();
+        $this->brands =  DB::table('categories')->join('brands','categories.prod_cat','=','brands.id')->select(DB::raw('COUNT(*) as counter, brands.prod_cat'),'brands.prod_cat')->groupby('categories.prod_cat')->get();
 
     }
     public function slider(){
@@ -40,25 +40,23 @@ class for_slider extends Controller
 
     public function getpost($id){
         $getposts = DB::table('categories')->where('id', '=', $id)->first();
-
         $related_products =
             DB::table('categories')
-            ->where('cat_name','=',DB::table('categories')
-                ->select('cat_name')
+            ->where('cats_id','=',DB::table('categories')
+                ->select('cats_id')
                 ->where('id','=',$id)
-                ->get()[0]->cat_name)
+                ->get()[0]->cats_id)
             ->whereNotIn('id', [$id])->latest()->take(4)
             ->get();
-        return view('single',compact('getposts','related_products'));
+        $sidecats = $this->forallcats;
+        $brands = $this->brands;
+        return view('single',compact('getposts','related_products','sidecats','brands'));
     }
 
     public function viewall($category){
-        $ghar = $this->home;
-        /*$allproducts = DB::table('categories')->where('cat_name',$category)->paginate(12);/*categories::all()->where('cat_name', $category)*/
         $allproducts = DB::table('categories')->JOIN('cats','categories.cats_id','=','cats.id')->SELECT('categories.*', 'cat_image','cat_price','cat_desc','cats_id', 'category')->where('cats.category','=',$category)->paginate(10);
         $sidecats = $this->forallcats;
         $brands = $this->brands;
-        $catsname = '';
         return view('products',compact( 'ghar','sidecats', 'allproducts','brands','catsname', 'category'));
     }
 
@@ -68,8 +66,8 @@ class for_slider extends Controller
         $brands = $this->brands;
         $ghar = $this->home;
         $sidecats = $this->forallcats;
-        $allproducts = categories::all()->where('brand', $brand);
-        return view('brands',compact('allproducts','ghar','sidecats','brands'));
+        $allproducts = DB::table('categories')->JOIN('brands','categories.prod_cat','=','brands.id')->SELECT('categories.*', 'cat_image','cat_price','cat_desc','cats_id')->where('brands.prod_cat','=',$brand)->paginate(10);
+        return view('brands',compact('allproducts','ghar','sidecats','brands','brand'));
     }
 
     public function getcart(Request $request,$id, $qty = 1){
@@ -217,16 +215,16 @@ class for_slider extends Controller
     }
 
     public function search(){
-        $ghar = $this->home;
         $sidecats = $this->forallcats;
         $brands = $this->brands;
         $q = Input::get ( 'q' );
         $user = categories::where('post_title','LIKE','%'.$q.'%')->get();
         if(count($user) > 0){
-            return view('search',compact('sidecats','brands','ghar'))->withDetails($user)->withQuery ( $q );
+            return view('search',compact('sidecats','brands','ghar','q','user'))->withDetails($user)->withQuery($q);
         }
         else{
-            return view ('errors.503')->withMessage('No Details found. Try to search again !');
+            session::flash('msg','');
+            return view ('search',compact('sidecats','brands','ghar','q'));
         }
     }
 

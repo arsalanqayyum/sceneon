@@ -6,7 +6,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h1>{{$allproducts->pluck('brand_title')[0]}}</h1>
+                            <h2>{{$brand}}</h2>
                         </div>
                     </div>
                 </div>
@@ -19,29 +19,28 @@
                                 <li class="cat-head">Categories</li>
 
                                 @foreach($sidecats as $cats)
-                                    <a href="{{ url('cats',[$cats->cat_name]) }}"><li>{{$cats->cat_name}} <span class="badge">{{$cats->counter}}</span></li></a>
+                                    <a href="{{ url('products',[$cats->category]) }}"><li>{{$cats->category}} <span class="badge">{{$cats->counter}}</span></li></a>
 
                                 @endforeach
-                            </ul>
-                        </div>
-                        <div class="sidebar">
-                            <ul class="list-unstyled">
+
                                 <li class="cat-head">By Brands</li>
-                                @foreach($brands as $brand)
-                                    <a href="{{url('brands',[$brand->brand])}}"><li>{{$brand->brand}}<span class="badge">{{$brand->counter}}</span></li></a>
+                                @foreach($brands as $sidebar)
+                                    <a href="{{url('brands',[$sidebar->prod_cat])}}"><li>{{$sidebar->prod_cat}}<span class="badge">{{$sidebar->counter}}</span></li></a>
                                 @endforeach
-                            </ul>
-                        </div>
-                        <div>
 
+
+                            </ul>
                         </div>
 
                     </div>
                     <div class="col-sm-9">
+                        <div class="navigation-tab">
+                            <h3>{{$brand}}</h3>
+                        </div>
                         @foreach($allproducts as $product)
                             <div class="col-lg-4 col-md-3 col-sm-12 col-xs-12">
                                 <div class="new-items cat">
-                                    <a href="{{ url('',[$product->id]) }}"><img src="{{$ghar.'/'.$product->cat_image}}" class="img-responsive"/></a>
+                                    <a href="{{ url('',[$product->id]) }}"><img src="{{asset('/uploads').'/'.$product->cat_image}}" class="img-responsive"/></a>
                                     <div class="tags">{{$product->cat_price}}</div>
 
                                     <label>{{$product->cat_desc}}</label>

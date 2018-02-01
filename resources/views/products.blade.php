@@ -6,9 +6,9 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h1>
+                            <h2>
                                 {{$category}}
-                            </h1>
+                            </h2>
                         </div>
                     </div>
                 </div>
@@ -21,31 +21,33 @@
                                 <li class="cat-head">Categories</li>
 
                                 @foreach($sidecats as $cats)
-                                <a href="{{url('products',[$cats->category])}}"><li>{{$cats->category}} <span class="badge">{{$cats->counter}}</span></li></a>
+                                <a href="{{url('products',[$cats->category])}}">
+                                    <li>{{$cats->category}} <span class="badge">{{$cats->counter}}</span></li>
+                                </a>
 
                                     @endforeach
-                            </ul>
-                        </div>
-                        <div class="sidebar">
-                            <ul class="list-unstyled">
+
                                 <li class="cat-head">By Brands</li>
                                 @foreach($brands as $brand)
-                                <a href="{{url ('brands',[$brand->brand])}}"><li>{{$brand->brand}}<span class="badge">{{$brand->counter}}</span></li></a>
-                                    @endforeach
-                            </ul>
-                        </div>
-                        <div>
+                                    <a href="{{url ('brands',[$brand->prod_cat])}}"><li>{{$brand->prod_cat}}<span class="badge">{{$brand->counter}}</span></li></a>
+                                @endforeach
 
+                            </ul>
                         </div>
 
                     </div>
                     <div class="col-sm-9">
+                        <div class="navigation-tab">
+                            <h3>{{$category}}</h3>
+                        </div>
                         @foreach($allproducts as $product)
                         <div class="col-lg-4 col-md-3 col-sm-12 col-xs-12">
                             <div class="new-items cat">
-                                <a href="{{ url('',[$product->id]) }}"><img src="{{$ghar.'/uploads/'.$product->cat_image}}" class="img-responsive"/></a>
+                                <a href="{{ url('',[$product->id]) }}">
+                                    <img src="{{asset('/uploads').'/'.$product->cat_image}}" class="img-responsive"/>
+                                </a>
                                 <div class="tags">{{$product->cat_price}}</div>
-
+                                <p>{{$product->brand_title}}</p>
                                 <label>{{$product->cat_desc}}</label>
                                 <div class="shop-now">
                                     <a href="{{url('add-to-cart/'.$product->id)}}"><i class="fa fa-shopping-bag"></i> Add to cart</a>

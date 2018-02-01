@@ -36,7 +36,18 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+    public function index()
+    {
+        return view('layouts.admin-panel.dashboard');
+    }
+    /*public function post()
+    {
+        return view('layouts.admin-panel.add-new');
+    }*/
+    public function allposts()
+    {
+        return view('layouts.admin-panel.add-slider');
+    }
 
     public function adminallposts()
     {

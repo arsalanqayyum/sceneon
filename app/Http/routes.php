@@ -213,7 +213,10 @@ Route::get('/removeall/{id}',[
 
 
 
-Route::any('/search','for_slider@search');
+Route::any('/search',[
+    'uses'  => 'for_slider@search',
+    'as'    => 'search'
+]);
 
 
 
