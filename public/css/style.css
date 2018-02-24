@@ -998,3 +998,13 @@ body {
 .nav-tabs li{
 	border-bottom: 0px !important;
 }
+
+.specification ul{
+	background-color: transparent !important;
+	border: 0px !important;
+}
+
+.specification ul li{
+	border-bottom: 0px !important;
+	color: #737373 !important;
+}

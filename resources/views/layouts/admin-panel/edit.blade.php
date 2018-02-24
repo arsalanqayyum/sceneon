@@ -36,6 +36,7 @@
                 <textarea class="form-control" name="summary" placeholder="Enter Description" rows="10">{{$getall->summary}}</textarea>
                 <h2>Short Description</h2>
                 <textarea class="form-control" name="cat_desc" placeholder="Enter short Description">{{$getall->cat_desc}}</textarea>
+                <textarea class="form-control" name="specification"></textarea>
                 <table style="float: left">
                     <tr>
                         <td><h2>Price</h2></td>

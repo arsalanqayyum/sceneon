@@ -105,6 +105,7 @@ class HomeController extends Controller
         $post->post_title = Input::get('post_title');
         $post->summary = Input::get('summary');
         $post->cat_desc = Input::get('cat_desc');
+        $post->specification = json_encode([Input::get('specification')]);
         $post->cat_price = Input::get('cat_price');
         $post->discount = Input::get('discount');
         $post->stock = Input::get('stock');

@@ -22,9 +22,12 @@
                         <h2>{{$getposts->post_title}}</h2>
                         <span class="amount">Rs. {{$getposts->cat_price}}</span>
                         <span class="discount">Rs. {{$getposts->discount}}</span>
+                        <br><span><strong>Discount Rs. {{$getposts->discount}}</strong></span>
                         <h3>Short Description</h3>
-                        <p>{{$getposts->summary}}</p>
-
+                        <p>{{$getposts->cat_desc}}</p>
+                        <div class="shop-now" style="float: left;">
+                            <a href="{{url('add-to-cart/'.$getposts->id)}}"><i class="fa fa-shopping-bag"></i> Add to cart</a>
+                        </div>
                         {{--<table class="table-responsive" width="100%">
                             <tr>
                                 <th>Posted on: </th>
@@ -105,19 +108,29 @@
                 <div class="row">
                     <div class="col-sm-9">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-                            <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
-                            <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+                            <li class="active"><a data-toggle="tab" href="#home">DESCRIPTION</a></li>
+                            <li><a data-toggle="tab" href="#menu1">KEY FEATURES</a></li>
+                            <li><a data-toggle="tab" href="#menu2">OTHERS</a></li>
                         </ul>
 
                         <div class="tab-content">
                             <div id="home" class="tab-pane fade in active">
                                 <h3>DESCRIPTION</h3>
-                                <p>Some content.</p>
+                                <p>{{$getposts->summary}}</p>
                             </div>
-                            <div id="menu1" class="tab-pane fade">
-                                <h3>SPECIFICATION</h3>
-                                <p>Some content in menu 1.</p>
+                            <div id="menu1" class="specification tab-pane fade">
+                                <h3>KEY FEATURES</h3>
+                                <ul class="list-unstyled">
+                                    @foreach(json_decode($getposts->specification,true) as $key => $value)
+
+                                        <?php
+                                        $value = str_replace("\r\n","<li><i class='fa fa-angle-right'></i> ", $value);
+                                        echo "<li><i class='fa fa-angle-right'></i> " . $value. "</li>";
+                                        ?>
+
+
+                                    @endforeach
+                                </ul>
                             </div>
                             <div id="menu2" class="tab-pane fade">
                                 <h3>OTHERS</h3>
